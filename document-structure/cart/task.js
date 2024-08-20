@@ -39,18 +39,20 @@ for (let idx = 0; idx < products.length; idx++) {
     // Event for cart button
     button.onclick = () => {
         const dataId = products[idx].getAttribute("data-id");
-        const cartProducts = cart.querySelectorAll(".cart__product");
+        const cartProducts = Array.from(cart.querySelectorAll(".cart__product"));
 
         // Searching for product
-        for (let idx3 = 0; idx3 < cartProducts.length; idx3++) {
-            if (cartProducts[idx3].getAttribute("data-id") == dataId) {
-                const count = cartProducts[idx3].querySelector(".cart__product-count");
-                count.textContent = String(Number(count.textContent) + Number(quantity.textContent));
-                return;
-            };
+        const productInCart = cartProducts.find((el) => {
+            return el.getAttribute("data-id") == dataId;
+        });
+
+        // Proccess event
+        if (productInCart) {
+            const count = productInCart.querySelector(".cart__product-count");
+            count.textContent = String(Number(count.textContent) + Number(quantity.textContent));
+        } else {
+            const productImg = products[idx].getElementsByTagName("img")[0];
+            cart.appendChild(createCartProduct(dataId, productImg.getAttribute("src"), quantity.textContent));
         };
-        
-        const productImg = products[idx].getElementsByTagName("img")[0];
-        cart.appendChild(createCartProduct(dataId, productImg.getAttribute("src"), quantity.textContent));
     };
 };
