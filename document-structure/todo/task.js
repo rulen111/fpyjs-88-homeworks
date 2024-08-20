@@ -13,8 +13,9 @@ const addButton = document.getElementById("tasks__add");
 addButton.onclick = (event) => {
     event.preventDefault();
 
-    if (inputArea.value) {
+    if (inputArea.value.trim()) {
         const newTask = createTaskElement(inputArea.value);
+        inputArea.value = "";
         const removeEl = newTask.lastChild;
 
         removeEl.onclick = () => {
