@@ -1,5 +1,5 @@
 function loadItems(parent, items) {
-    for (curr in items) {
+    for (const curr in items) {
         const child = document.createElement("div");
         child.classList.add("item");
         child.innerHTML = `<div class="item__code">
